@@ -32,22 +32,35 @@ const Sidebar = () => {
           <ul className="menu bg-base-200 min-h-full w-60 md:w-80 p-4">
             {/* Sidebar content here */}
             {/* <ul className="menu menu-horizontal px-1"> */}
-              <li>
-                <details>
-                  <summary>Choose Font</summary>
-                  <ul className="bg-base-100 rounded-t-none p-2">
-                    <li>
-                      <a>Link 1</a>
-                    </li>
-                    <li>
-                      <a>Link 2</a>
-                    </li>
-                  </ul>
-                </details>
-              </li>
+            <li>
+              <details>
+                <summary>Choose Font Style</summary>
+                <ul className="bg-base-100 rounded-t-none p-2">
+                  <li>
+                    <a>Amiri</a>
+                  </li>
+                  <li>
+                    <a>Scheherazade</a>
+                  </li>
+                </ul>
+              </details>
+            </li>
             {/* </ul> */}
             <li>
-              <a>Sidebar Item 2</a>
+              <details>
+                <summary>Choose Font Size</summary>
+                <ul className="bg-base-100 rounded-t-none p-2">
+                  <li>
+                    <a>Small</a>
+                  </li>
+                  <li>
+                    <a>Medium</a>
+                  </li>
+                  <li>
+                    <a>Large</a>
+                  </li>
+                </ul>
+              </details>
             </li>
           </ul>
         </div>

@@ -76,9 +76,9 @@ const NavBar = () => {
           </ul> */}
         </div>
         <div className="navbar-end">
-          <a className="">
+          <div>
             <Sidebar></Sidebar>
-          </a>
+          </div>
         </div>
       </div>
     );
