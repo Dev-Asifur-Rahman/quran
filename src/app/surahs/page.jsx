@@ -1,3 +1,5 @@
+import SurahTBody from "@/components/SurahTBody";
+
 async function getSurahList() {
   const res = await fetch("https://api.alquran.cloud/v1/surah", {
     cache: "force-cache",
@@ -29,16 +31,11 @@ export default async function Page() {
               </tr>
             </thead>
 
+            
+
             <tbody>
               {surahList?.data?.map((surah, index) => (
-                <tr key={index}>
-                  <th className="text-center">{index + 1}</th>
-                  <td className="font-medium">{surah?.name}</td>
-                  <td className="text-center">{surah?.englishName}</td>
-                  <td className="text-center">{surah?.englishNameTranslation}</td>
-                  <td className="text-center">{surah?.numberOfAyahs}</td>
-                  <td className="text-center">{surah?.revelationType}</td>
-                </tr>
+                <SurahTBody key={index} surah={surah} index={index}></SurahTBody>
               ))}
             </tbody>
           </table>
