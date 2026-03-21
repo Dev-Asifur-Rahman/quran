@@ -1,11 +1,18 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import Sidebar from "./Sidebar";
+import Image from "next/image";
 
 const NavBar = () => {
   const pathname = usePathname();
-  if (pathname.startsWith("/surahs") || pathname.startsWith("/search-ayah")) {
+  const router = useRouter();
+
+  if (
+    pathname.startsWith("/surahs") ||
+    pathname.startsWith("/search-ayah") ||
+    pathname.startsWith("/surah")
+  ) {
     return (
       <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
@@ -50,7 +57,15 @@ const NavBar = () => {
               </li>
             </ul>
           </div> */}
-          <p className="text-3xl font-bold">Quran</p>
+
+          <div onClick={() => router.push("/surahs")} className="hover:cursor-pointer">
+            <Image
+              src="/logos/quran-logo.svg"
+              alt="Quran Logo"
+              width={120}
+              height={40}
+            />
+          </div>
         </div>
         <div className="navbar-center hidden lg:flex">
           {/* <ul className="menu menu-horizontal px-1">
