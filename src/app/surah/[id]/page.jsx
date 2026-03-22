@@ -21,7 +21,7 @@ const page = async ({ params }) => {
   return (
     <section className="min-h-screen bg-base-200 py-6 px-4">
       <div className="max-w-4xl mx-auto bg-base-100 rounded-2xl shadow-lg p-4 sm:p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-center mb-6">
+        <h1 className="text-3xl text-[#1F6F5F] font-bold text-center mb-6">
           {arabic?.englishName}
         </h1>
 
