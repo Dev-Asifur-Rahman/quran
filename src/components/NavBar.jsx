@@ -58,7 +58,10 @@ const NavBar = () => {
             </ul>
           </div> */}
 
-          <div onClick={() => router.push("/surahs")} className="hover:cursor-pointer">
+          <div
+            onClick={() => router.push("/surahs")}
+            className="hover:cursor-pointer"
+          >
             <Image
               src="/logos/quran-logo.svg"
               alt="Quran Logo"
@@ -67,7 +70,28 @@ const NavBar = () => {
             />
           </div>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-center">
+          <div>
+            <label className="input">
+              <svg
+                className="h-[1em] opacity-50"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </g>
+              </svg>
+              <input type="search" required placeholder="Search" />
+            </label>
+          </div>
           {/* <ul className="menu menu-horizontal px-1">
             <li>
               <a>Item 1</a>
