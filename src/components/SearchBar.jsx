@@ -1,8 +1,41 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 
 const SearchBar = () => {
+  const [searchResult, setSearchResult] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      const trimmedValue = searchValue.trim().toLowerCase();
+
+      if (trimmedValue.length !== 0) {
+        try {
+          const res = await fetch(
+            `https://api.alquran.cloud/v1/search/${trimmedValue}/all/en.sahih`,
+          );
+          const data = await res.json();
+
+          setSearchResult(data?.data?.matches?.slice(0, 6) || []);
+          console.log(searchResult);
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        setSearchResult([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+  };
+
   return (
-    <div className="navbar-center flex w-[45%]  justify-center relative">
+    <div className="navbar-center flex w-[45%] justify-center relative">
       <label className="input w-full">
         <svg
           className="h-[1em] opacity-50"
@@ -20,41 +53,26 @@ const SearchBar = () => {
             <path d="m21 21-4.3-4.3"></path>
           </g>
         </svg>
-        <input type="search" className="" required placeholder="Search Ayah" />
+        <input
+          onChange={handleSearch}
+          type="search"
+          className=""
+          required
+          placeholder="Search Ayah"
+        />
       </label>
-      <ul className="menu bg-base-200 rounded-box w-full absolute top-full mt-1">
-        <li>
-          <a>Item 1</a>
-        </li>
-        <li>
-          <a>Item 2</a>
-        </li>
-        <li>
-          <a>Item 3</a>
-        </li>
-      </ul>
-
-      {/* <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2 bg-base-100 w-40 z-1">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul> */}
+      {searchResult?.length !== 0 && (
+        <ul className="menu z-10 bg-base-200 rounded-box w-full absolute top-full mt-1">
+          {searchResult?.map((result, index) => {
+            return (
+              <li key={index}>
+                <a>{`${result?.surah?.englishName} : Ayah - ${result?.numberInSurah}`}</a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {/* <ul className="menu menu-horizontal px-1"> <li> <a>Item 1</a> </li> <li> <details> <summary>Parent</summary> <ul className="p-2 bg-base-100 w-40 z-1"> <li> <a>Submenu 1</a> </li> <li> <a>Submenu 2</a> </li> </ul> </details> </li> <li> <a>Item 3</a> </li> </ul> */}
     </div>
   );
 };
