@@ -21,12 +21,6 @@ export default function Home() {
             Start Reading
           </Link>
 
-          <Link
-            href={"/search-ayah"}
-            className="px-6 py-3 rounded-xl border border-white/60"
-          >
-            Search Ayah
-          </Link>
         </div>
       </div>
 

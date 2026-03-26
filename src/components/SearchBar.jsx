@@ -1,9 +1,13 @@
 "use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const SearchBar = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(async () => {
@@ -17,7 +21,6 @@ const SearchBar = () => {
           const data = await res.json();
 
           setSearchResult(data?.data?.matches?.slice(0, 6) || []);
-          console.log(searchResult);
         } catch (err) {
           console.error(err);
         }
@@ -33,6 +36,11 @@ const SearchBar = () => {
     const value = e.target.value;
     setSearchValue(value);
   };
+
+  const handleRoute = (result) =>{
+    router.push(`/surah/${result?.surah?.number}`)
+    setSearchResult([])
+  }
 
   return (
     <div className="navbar-center flex w-[45%] justify-center relative">
@@ -66,7 +74,7 @@ const SearchBar = () => {
           {searchResult?.map((result, index) => {
             return (
               <li key={index}>
-                <a>{`${result?.surah?.englishName} : Ayah - ${result?.numberInSurah}`}</a>
+                <a onClick={()=>handleRoute(result)}>{`${result?.surah?.englishName} : Ayah - ${result?.numberInSurah}`}</a>
               </li>
             );
           })}
