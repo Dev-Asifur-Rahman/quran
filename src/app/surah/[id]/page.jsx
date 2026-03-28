@@ -27,7 +27,7 @@ const page = async ({ params }) => {
 
         <div className="space-y-6">
           {arabic?.ayahs?.map((ayah, index) => (
-            <div key={ayah.number} className="p-4 rounded-xl bg-base-200">
+            <div id={ayah?.number} key={ayah?.number} className="p-4 rounded-xl bg-base-200">
               <p className="text-right text-2xl leading-loose font-serif">
                 {ayah.text}
               </p>
