@@ -9,6 +9,7 @@ async function getSurah(id) {
   return data;
 }
 
+import AyahDivContainer from "@/components/AyahDivContainer";
 import React from "react";
 
 const page = async ({ params }) => {
@@ -27,21 +28,7 @@ const page = async ({ params }) => {
 
         <div className="space-y-6">
           {arabic?.ayahs?.map((ayah, index) => (
-            <div id={ayah?.number} key={ayah?.number} className="p-4 rounded-xl bg-base-200">
-              <p className="text-right text-2xl leading-loose font-serif">
-                {ayah.text}
-              </p>
-
-              <p className="mt-3 text-gray-600 text-base">
-                {translation?.ayahs?.[index]?.text}
-              </p>
-
-              <div className="flex justify-center mt-3">
-                <span className="badge badge-outline">
-                  {ayah.numberInSurah}
-                </span>
-              </div>
-            </div>
+            <AyahDivContainer key={index} ayah={ayah} index={index}translation={translation}></AyahDivContainer>
           ))}
         </div>
       </div>
