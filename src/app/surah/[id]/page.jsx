@@ -26,11 +26,10 @@ const page = async ({ params }) => {
           {arabic?.englishName}
         </h1>
 
-        <div className="space-y-6">
-          {arabic?.ayahs?.map((ayah, index) => (
-            <AyahDivContainer key={index} ayah={ayah} index={index}translation={translation}></AyahDivContainer>
-          ))}
-        </div>
+        <AyahDivContainer
+          arabic={arabic}
+          translation={translation}
+        ></AyahDivContainer>
       </div>
     </section>
   );

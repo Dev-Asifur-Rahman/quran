@@ -1,23 +1,55 @@
 "use client";
 
-const AyahDivContainer = ({ ayah, index, translation }) => {
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
+const AyahDivContainer = ({ arabic, translation }) => {
+  const searchParams = useSearchParams();
+  const targetAyah = searchParams.get("ayah");
+
+  useEffect(() => {
+    if (targetAyah) {
+      const element = document.getElementById(`ayah-${targetAyah}`);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }
+  }, [targetAyah]);
+
   return (
-    <div
-      id={ayah?.number}
-      key={ayah?.number}
-      className="p-4 rounded-xl bg-base-200"
-    >
-      <p className="text-right text-2xl leading-loose font-serif">
-        {ayah.text}
-      </p>
+    <div className="space-y-6">
+      {arabic?.ayahs?.map((ayah, index) => {
+        const isTarget = targetAyah == ayah.numberInSurah;
 
-      <p className="mt-3 text-gray-600 text-base">
-        {translation?.ayahs?.[index]?.text}
-      </p>
+        return (
+          <div
+            id={`ayah-${ayah.numberInSurah}`}
+            key={ayah.number}
+            className={`p-4 rounded-xl transition-all duration-300 ${
+              isTarget
+                ? "bg-amber-50 border border-amber-200 shadow-sm"
+                : "bg-base-200"
+            }`}
+          >
+            <p className="text-right text-2xl leading-loose font-serif">
+              {ayah.text}
+            </p>
 
-      <div className="flex justify-center mt-3">
-        <span className="badge badge-outline">{ayah.numberInSurah}</span>
-      </div>
+            <p className="mt-3 text-gray-600 text-base">
+              {translation?.ayahs?.[index]?.text}
+            </p>
+
+            <div className="flex justify-center mt-3">
+              <span className="badge badge-outline">
+                {ayah.numberInSurah}
+              </span>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
