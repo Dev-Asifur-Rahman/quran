@@ -6,18 +6,24 @@ import { useEffect } from "react";
 const AyahDivContainer = ({ arabic, translation }) => {
   const searchParams = useSearchParams();
   const targetAyah = searchParams.get("ayah");
+  const time = searchParams.get("time");
 
   useEffect(() => {
-    if (targetAyah) {
+    if (!targetAyah) return;
+
+    const timer = setTimeout(() => {
       const element = document.getElementById(`ayah-${targetAyah}`);
+
       if (element) {
         element.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
       }
-    }
-  }, [targetAyah]);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [targetAyah, time, arabic]);
 
   return (
     <div className="space-y-6">
@@ -43,9 +49,7 @@ const AyahDivContainer = ({ arabic, translation }) => {
             </p>
 
             <div className="flex justify-center mt-3">
-              <span className="badge badge-outline">
-                {ayah.numberInSurah}
-              </span>
+              <span className="badge badge-outline">{ayah.numberInSurah}</span>
             </div>
           </div>
         );

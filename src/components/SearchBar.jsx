@@ -38,7 +38,7 @@ const SearchBar = () => {
   };
 
   const handleRoute = (result) =>{
-    router.push(`/surah/${result?.surah?.number}?ayah=${result?.numberInSurah}`)
+    router.push(`/surah/${result?.surah?.number}?ayah=${result?.numberInSurah}&time=${Date.now()}`)
     setSearchResult([])
   }
 
