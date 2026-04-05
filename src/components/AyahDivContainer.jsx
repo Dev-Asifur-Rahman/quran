@@ -1,13 +1,8 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const AyahDivContainer = ({ arabic, translation }) => {
-  const searchParams = useSearchParams();
-  const targetAyah = searchParams.get("ayah");
-  const time = searchParams.get("time");
-
+const AyahDivContainer = ({ arabic, translation, targetAyah, time }) => {
   const [fontStyle, setFontStyle] = useState("amiri");
   const [fontSize, setFontSize] = useState("md");
 
@@ -90,7 +85,9 @@ const AyahDivContainer = ({ arabic, translation }) => {
             </p>
 
             <div className="flex justify-center mt-3">
-              <span className="badge badge-outline">{ayah.numberInSurah}</span>
+              <span className="badge badge-outline">
+                {ayah.numberInSurah}
+              </span>
             </div>
           </div>
         );

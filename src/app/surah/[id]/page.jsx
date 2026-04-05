@@ -1,3 +1,5 @@
+export const revalidate = 86400;
+
 async function getSurah(id) {
   const res = await fetch(
     `https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,en.sahih`,
@@ -10,9 +12,7 @@ async function getSurah(id) {
 }
 
 export async function generateStaticParams() {
-  const res = await fetch("https://api.alquran.cloud/v1/surah", {
-    cache: "no-store",
-  });
+  const res = await fetch("https://api.alquran.cloud/v1/surah");
 
   const data = await res.json();
 
@@ -24,8 +24,9 @@ export async function generateStaticParams() {
 import AyahDivContainer from "@/components/AyahDivContainer";
 import ScrollToTop from "@/components/ScrollToTop";
 
-export default async function Page({ params }) {
-  const { id } = params;
+export default async function Page({ params, searchParams }) {
+  const { id } = await params;
+  const { ayah, time } = await searchParams;
 
   const surah = await getSurah(id);
 
@@ -39,7 +40,12 @@ export default async function Page({ params }) {
           {arabic?.englishName}
         </h1>
 
-        <AyahDivContainer arabic={arabic} translation={translation} />
+        <AyahDivContainer
+          arabic={arabic}
+          translation={translation}
+          targetAyah={ayah}
+          time={time}
+        />
       </div>
 
       <ScrollToTop />
