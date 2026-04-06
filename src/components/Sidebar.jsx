@@ -45,11 +45,11 @@ const Sidebar = () => {
               <summary>Choose Font Style</summary>
               <ul className="bg-base-100 rounded-t-none p-2">
                 <li>
-                  <a onClick={() => changeFontStyle("amiri")}>Amiri</a>
+                  <a onClick={() => changeFontStyle("amiri")}>Amiri {fontStyle === 'amiri' && '(selected)'}</a>
                 </li>
                 <li>
                   <a onClick={() => changeFontStyle("scheherazade")}>
-                    Scheherazade
+                    Scheherazade {fontStyle !== 'amiri' && '(selected)'}
                   </a>
                 </li>
               </ul>
@@ -61,13 +61,13 @@ const Sidebar = () => {
               <summary>Choose Font Size</summary>
               <ul className="bg-base-100 rounded-t-none p-2">
                 <li>
-                  <a onClick={() => changeFontSize("sm")}>Small</a>
+                  <a onClick={() => changeFontSize("sm")}>Small {fontSize === 'sm' && '(selected)'}</a>
                 </li>
                 <li>
-                  <a onClick={() => changeFontSize("md")}>Medium</a>
+                  <a onClick={() => changeFontSize("md")}>Medium {fontSize === 'md' && '(selected)'}</a>
                 </li>
                 <li>
-                  <a onClick={() => changeFontSize("lg")}>Large</a>
+                  <a onClick={() => changeFontSize("lg")}>Large {fontSize === 'lg' && '(selected)'}</a>
                 </li>
               </ul>
             </details>
