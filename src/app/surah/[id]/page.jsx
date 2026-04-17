@@ -1,11 +1,9 @@
-export const dynamic = "force-static";
-
 async function getSurah(id) {
   const res = await fetch(
     `https://api.alquran.cloud/v1/surah/${id}/editions/quran-uthmani,en.sahih`,
     {
-      cache: "force-cache",
-    },
+      next: { revalidate: 86400 },
+    }
   );
 
   return res.json();
@@ -13,7 +11,7 @@ async function getSurah(id) {
 
 export async function generateStaticParams() {
   const res = await fetch("https://api.alquran.cloud/v1/surah", {
-    cache: "force-cache",
+    cache: "no-store",
   });
 
   const data = await res.json();
@@ -27,7 +25,7 @@ import AyahDivContainer from "@/components/AyahDivContainer";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export default async function Page({ params }) {
-  const { id } = await params;
+  const { id } = params;
 
   const surah = await getSurah(id);
 
