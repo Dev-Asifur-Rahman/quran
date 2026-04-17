@@ -10,6 +10,7 @@ async function getSurah(id) {
 }
 
 import AyahDivContainer from "@/components/AyahDivContainer";
+import ScrollToTop from "@/components/ScrollToTop";
 import React from "react";
 
 const page = async ({ params }) => {
@@ -31,6 +32,7 @@ const page = async ({ params }) => {
           translation={translation}
         ></AyahDivContainer>
       </div>
+      <ScrollToTop></ScrollToTop>
     </section>
   );
 };
