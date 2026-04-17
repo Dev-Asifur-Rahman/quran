@@ -1,12 +1,39 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const AyahDivContainer = ({ arabic, translation }) => {
   const searchParams = useSearchParams();
   const targetAyah = searchParams.get("ayah");
   const time = searchParams.get("time");
+
+  const [fontStyle, setFontStyle] = useState("amiri");
+  const [fontSize, setFontSize] = useState("md");
+
+  useEffect(() => {
+    const savedFont = localStorage.getItem("quran-font-style");
+    const savedSize = localStorage.getItem("quran-font-size");
+
+    if (savedFont) setFontStyle(savedFont);
+    if (savedSize) setFontSize(savedSize);
+  }, []);
+
+  useEffect(() => {
+    const updateSettings = () => {
+      const savedFont = localStorage.getItem("quran-font-style");
+      const savedSize = localStorage.getItem("quran-font-size");
+
+      if (savedFont) setFontStyle(savedFont);
+      if (savedSize) setFontSize(savedSize);
+    };
+
+    window.addEventListener("settings-change", updateSettings);
+
+    return () => {
+      window.removeEventListener("settings-change", updateSettings);
+    };
+  }, []);
 
   useEffect(() => {
     if (!targetAyah) return;
@@ -25,6 +52,17 @@ const AyahDivContainer = ({ arabic, translation }) => {
     return () => clearTimeout(timer);
   }, [targetAyah, time, arabic]);
 
+  const fontClass = {
+    amiri: "Amiri",
+    scheherazade: "Scheherazade New",
+  };
+
+  const sizeClass = {
+    sm: "text-xl",
+    md: "text-2xl",
+    lg: "text-3xl",
+  };
+
   return (
     <div className="space-y-6">
       {arabic?.ayahs?.map((ayah, index) => {
@@ -40,11 +78,14 @@ const AyahDivContainer = ({ arabic, translation }) => {
                 : "bg-base-200"
             }`}
           >
-            <p className="text-right text-2xl leading-loose font-serif">
+            <p
+              style={{ fontFamily: fontClass[fontStyle] }}
+              className={`text-right leading-loose ${sizeClass[fontSize]}`}
+            >
               {ayah.text}
             </p>
 
-            <p className="mt-3 text-gray-600 text-base">
+            <p className={`mt-3 text-gray-600 ${sizeClass[fontSize]}`}>
               {translation?.ayahs?.[index]?.text}
             </p>
 

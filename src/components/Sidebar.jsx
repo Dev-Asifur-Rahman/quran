@@ -17,11 +17,13 @@ const Sidebar = () => {
   const changeFontStyle = (style) => {
     setFontStyle(style);
     localStorage.setItem("quran-font-style", style);
+    window.dispatchEvent(new Event("settings-change"));
   };
 
   const changeFontSize = (size) => {
     setFontSize(size);
     localStorage.setItem("quran-font-size", size);
+    window.dispatchEvent(new Event("settings-change"));
   };
 
   return (
