@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
@@ -8,6 +8,19 @@ import SearchBar from "./SearchBar";
 const NavBar = () => {
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    const savedFont = localStorage.getItem("quran-font-style");
+    const savedSize = localStorage.getItem("quran-font-size");
+
+    if (!savedFont) {
+      localStorage.setItem("quran-font-style", "amiri");
+    }
+
+    if (!savedSize) {
+      localStorage.setItem("quran-font-size", "md");
+    }
+  }, []);
 
   if (
     pathname.startsWith("/surahs") ||
@@ -71,10 +84,12 @@ const NavBar = () => {
             />
           </div>
         </div>
-        <SearchBar></SearchBar>
+
+        <SearchBar />
+
         <div className="navbar-end">
           <div>
-            <Sidebar></Sidebar>
+            <Sidebar />
           </div>
         </div>
       </div>
